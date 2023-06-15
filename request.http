@@ -1,0 +1,40 @@
+###Test Action
+#//POST http://localhost:4004/job/scheduledForecastRefresh
+POST http://localhost:4004/api/scheduledForecastRefresh
+Content-Type:application/json
+
+{
+    "SalesOrder" : {
+        "Values": [],
+        "Ranges": [{"Low":"5260000000","High":"5269999999"}]
+    },
+    "SalesOrderType" : {
+        "Values": [{"Low":"LZ"},{"Low":"LZJ"},{"Low":"LK"}],
+        "Ranges": []
+    },
+    "SalesOrganization" : {
+        "Values": [{"Low":"FR16"},{"Low":"ES03"},{"Low":"MA01"}],
+        "Ranges": []
+    }
+}
+
+#    /*"SalesDocumentRjcnReason":" ",
+#    "SalesOrderLow":"5260000000",
+#    "SalesOrderHigh":"5269999999",
+#    "SalesOrderType1":"LZ",
+#    "SalesOrderType2":"LZJ",
+#    "SalesOrderType3":"LK",
+#    "SalesOrganization1":"FR16",
+#    "SalesOrganization2":"ES03",
+#    "SalesOrganization3":"MA01",*/
+
+
+###
+#GET ...
+###Package.json credentials backup
+# "credentials": {
+#           "path": "/sap/opu/odata/sap/API_SALES_ORDER_SRV;v=2",
+#           "destination": "S4HANA_PSD_HTTPS_505_BR_Basic"
+#         }
+
+

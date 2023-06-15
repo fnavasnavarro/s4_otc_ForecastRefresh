@@ -1,0 +1,91 @@
+{
+  "meta": {
+    "creator": "cds-dk 6.8.2"
+  },
+  "$version": "2.0",
+  "definitions": {
+    "ZAPI_FORECASTREFRESHJOB_O2": {
+      "kind": "service",
+      "@cds.external": true,
+      "@m.IsDefaultEntityContainer": "true",
+      "@sap.message.scope.supported": "true",
+      "@sap.supported.formats": "atom json xlsx"
+    },
+    "ZAPI_FORECASTREFRESHJOB_O2.ZA_ForecastSchRefreshJob": {
+      "kind": "entity",
+      "@cds.external": true,
+      "@cds.persistence.skip": true,
+      "@sap.creatable": "false",
+      "@sap.updatable": "false",
+      "@sap.deletable": "false",
+      "@sap.content.version": "1",
+      "@sap.label": "A&S Refresh Customer Forecast",
+      "elements": {
+        "SalesOrderID": {
+          "key": true,
+          "type": "cds.String",
+          "length": 10,
+          "@sap.display.format": "UpperCase",
+          "@sap.label": "Sales document",
+          "@sap.quickinfo": "Sales Document",
+          "notNull": true
+        },
+        "ItemID": {
+          "key": true,
+          "type": "cds.String",
+          "length": 6,
+          "@sap.display.format": "NonNegative",
+          "@sap.label": "Sales Document Item",
+          "notNull": true
+        },
+        "SDCategory": {
+          "type": "cds.String",
+          "length": 4,
+          "@sap.label": "SD Document Category"
+        },
+        "RejectionReason": {
+          "type": "cds.String",
+          "length": 2,
+          "@sap.display.format": "UpperCase",
+          "@sap.label": "Reason for Rejection",
+          "@sap.quickinfo": "Reason for Rejection of Sales Documents"
+        },
+        "SalesDocumentType": {
+          "type": "cds.String",
+          "length": 4,
+          "@sap.display.format": "UpperCase",
+          "@sap.label": "Sales Document Type"
+        },
+        "SalesOrganization": {
+          "type": "cds.String",
+          "length": 4,
+          "@sap.display.format": "UpperCase",
+          "@sap.label": "Sales Organization"
+        },
+        "UIM_INFO": {
+          "type": "cds.LargeString",
+          "@sap.label": "UIM Info",
+          "@sap.visible": "false",
+          "@sap.updatable": "false"
+        }
+      }
+    },
+    "ZAPI_FORECASTREFRESHJOB_O2.RefreshForecast": {
+      "kind": "action",
+      "@cds.external": true,
+      "params": {
+        "SalesOrderId": {
+          "type": "cds.String",
+          "length": 10
+        },
+        "ItemId": {
+          "type": "cds.String",
+          "length": 6
+        }
+      },
+      "returns": {
+        "type": "ZAPI_FORECASTREFRESHJOB_O2.ZA_ForecastSchRefreshJob"
+      }
+    }
+  }
+}

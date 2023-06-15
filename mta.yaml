@@ -1,0 +1,60 @@
+_schema-version: '3.1'
+ID: s4_otc_ForecastRefresh
+version: 1.0.0
+description: A simple CAP project.
+parameters:
+  enable-parallel-deployments: true
+build-parameters:
+  before-all:
+    - builder: custom
+      commands:
+        - npx -p @sap/cds-dk cds build --production
+modules:
+  - name: s4_otc_ForecastRefresh-srv
+    type: nodejs
+    path: gen/srv
+    parameters:
+      buildpack: nodejs_buildpack
+    build-parameters:
+      builder: npm-ci
+    provides:
+      - name: srv-api
+        properties:
+          srv-url: '${default-url}'
+    requires:
+      - name: s4_otc_ForecastRefresh-destination-service
+      - name: s4_otc_ForecastRefresh-connectivity-service
+      - name: s4_otc_ForecastRefresh-job-service
+      - name: uaa_s4_otc_ForecastRefresh
+resources:
+  - name: s4_otc_ForecastRefresh-destination-service
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: destination
+      config:
+        HTML5Runtime_enabled: true
+        version: 1.0.0
+      service-name: s4_otc_ForecastRefresh-destination-service
+      service-plan: lite
+  - name: s4_otc_ForecastRefresh-connectivity-service
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: connectivity
+      service-plan: lite
+  - name: uaa_s4_otc_ForecastRefresh
+    type: org.cloudfoundry.managed-service
+    parameters:
+      path: ./xs-security.json
+      service: xsuaa
+      service-plan: application
+      config:
+        xsappname: s4_otc_ForecastRefresh-xsuaa-service
+        tenant-mode: dedicated
+  - name: s4_otc_ForecastRefresh-job-service
+    type: org.cloudfoundry.managed-service
+    parameters:
+      config:
+        enable-xsuaa-support: true
+      service: jobscheduler
+      service-name: s4_otc_ForecastRefresh-job-scheduler
+      service-plan: standard
